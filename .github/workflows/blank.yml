@@ -8,8 +8,20 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  branch_protection_rule:
+    types: [deleted]
 
   workflow_dispatch:
+    inputs:
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -27,8 +39,11 @@ jobs:
 
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
+        env:
+          LEVEL: ${{ inputs.logLevel }}
         run: |
           echo Add other actions to build,
           echo test, and deploy your project.
+          echo $LEVEL 
   
 
