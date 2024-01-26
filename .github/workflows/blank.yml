@@ -25,17 +25,25 @@ on:
 
 jobs:
   build:
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./scripts
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
       # Runs a single command using the runners shell
-      - name: Building application
-        run: echo building...
+      - name: Ls at root
+        run: ls -lh
       
       - name: Setup Node.js environment
         uses: actions/setup-node@v4.0.1
         with:
           node-version: 16.x
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: .
   
 
