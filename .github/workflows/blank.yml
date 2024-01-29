@@ -2,6 +2,10 @@
 
 name: CI
 
+# workflow level
+env:
+  server: production
+
 ## trigger workflows
 on:
   push:
@@ -25,9 +29,16 @@ on:
 
 jobs:
   build:
+    env:
+      server: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      - env:
+          server: development
+        run: | 
+        echo "Estou deployando no servidor: "
+        echo $server
       - name: Setup Node.js environment
         uses: actions/setup-node@v4.0.1
         with:
