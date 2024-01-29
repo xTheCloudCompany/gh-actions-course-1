@@ -36,9 +36,11 @@ jobs:
       - uses: actions/checkout@v4
       - env:
           server: development
-        run: | 
-        echo "Estou deployando no servidor: "
-        echo $server
+        run: echo "estou deployando no servidor = $server"
+      - name: criando environment variable
+        run: echo "environment_variable_compartilhada_do_step_anterior=igor" >> "$GITHUB_ENV"
+      - name: printando environment variable
+        run: echo $environment_variable_compartilhada_do_step_anterior
       - name: Setup Node.js environment
         uses: actions/setup-node@v4.0.1
         with:
