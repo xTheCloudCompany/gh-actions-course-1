@@ -29,6 +29,8 @@ on:
 
 jobs:
   build:
+    outputs:
+      build-output: ${{ steps.set-output.outputs.environment_variable_compartilhada_do_job_anterior }}
     env:
       server: test
     runs-on: ubuntu-latest
@@ -41,6 +43,9 @@ jobs:
         run: echo "environment_variable_compartilhada_do_step_anterior=igor" >> "$GITHUB_ENV"
       - name: printando environment variable
         run: echo $environment_variable_compartilhada_do_step_anterior
+      - name: criando environment variable para o proximo job
+        run: echo "environment_variable_compartilhada_do_job_anterior=igor_job" >> "$GITHUB_OUTPUT"
+        id: set-output
       - name: Setup Node.js environment
         uses: actions/setup-node@v4.0.1
         with:
@@ -61,5 +66,7 @@ jobs:
         run: npm install
       - name: Install dependencies
         run: npm install
+      - name: printando variavel do job anterior
+        run: echo ${{ needs.build.outputs.build-output }}
   
 
