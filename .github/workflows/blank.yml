@@ -52,7 +52,13 @@ jobs:
           node-version: 16.x
       - name: Install dependencies
         run: npm run build
-
+      - name: criando arquivo test.txt
+        run: echo "testando" > test.txt
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: upload_test_txt
+          path: test.txt
   install:
     needs: build
     runs-on: ubuntu-latest
@@ -68,5 +74,6 @@ jobs:
         run: npm install
       - name: printando variavel do job anterior
         run: echo ${{ needs.build.outputs.build-output }}
+
   
 
