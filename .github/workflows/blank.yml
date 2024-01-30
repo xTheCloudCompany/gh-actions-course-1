@@ -74,6 +74,13 @@ jobs:
         run: npm install
       - name: printando variavel do job anterior
         run: echo ${{ needs.build.outputs.build-output }}
+      - name: Download a single artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: upload_test_txt
+      - name: print conteudo do arquivo teste.txt
+        run: cat test.txt
+      
 
   
 
