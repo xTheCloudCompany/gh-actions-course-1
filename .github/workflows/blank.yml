@@ -39,6 +39,10 @@ jobs:
       - env:
           server: development
         run: echo "estou deployando no servidor = $server"
+      - name: acessando secret
+        env: 
+          secret: ${{ secrets.MY_SUPER_SECRET }}
+        run: echo $secret
       - name: criando environment variable
         run: echo "environment_variable_compartilhada_do_step_anterior=igor" >> "$GITHUB_ENV"
       - name: printando environment variable
